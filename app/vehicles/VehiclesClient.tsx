@@ -1,38 +1,46 @@
-'use client';
+"use client";
 
-import { useEffect, useMemo, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { db } from '@/lib/firebase';
-import { collection, getDocs } from 'firebase/firestore';
-import { Vehicle } from '@/lib/types';
-import Link from 'next/link';
-import VehicleCard from '@/components/vehicles/VehicleCard';
+import { useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { db } from "@/lib/firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { Vehicle } from "@/lib/types";
+import Link from "next/link";
+import VehicleCard from "@/components/vehicles/VehicleCard";
 
 const SORT_OPTIONS = [
-  { value: 'newest', label: 'Newest' },
-  { value: 'price-asc', label: 'Price low to high' },
-  { value: 'price-desc', label: 'Price high to low' },
-  { value: 'year-desc', label: 'Year newest' },
-  { value: 'mileage-asc', label: 'Mileage lowest' },
+  { value: "newest", label: "Newest" },
+  { value: "price-asc", label: "Price low to high" },
+  { value: "price-desc", label: "Price high to low" },
+  { value: "year-desc", label: "Year newest" },
+  { value: "mileage-asc", label: "Mileage lowest" },
 ];
 
-const BODY_TYPES = ['SUV', 'Sedan', 'Hatchback', 'Ute', 'Van', 'Wagon', 'Coupe'];
+const BODY_TYPES = [
+  "SUV",
+  "Sedan",
+  "Hatchback",
+  "Ute",
+  "Van",
+  "Wagon",
+  "Coupe",
+];
 
 const FILTER_DEFAULTS = {
-  make: '',
-  model: '',
-  bodyType: '',
-  minPrice: '',
-  maxPrice: '',
-  minYear: '',
-  maxYear: '',
-  minMileage: '',
-  maxMileage: '',
-  transmission: '',
-  fuelType: '',
-  seats: '',
-  keyword: '',
-  sortBy: 'newest',
+  make: "",
+  model: "",
+  bodyType: "",
+  minPrice: "",
+  maxPrice: "",
+  minYear: "",
+  maxYear: "",
+  minMileage: "",
+  maxMileage: "",
+  transmission: "",
+  fuelType: "",
+  seats: "",
+  keyword: "",
+  sortBy: "newest",
 };
 
 export default function VehiclesClient() {
@@ -46,7 +54,7 @@ export default function VehiclesClient() {
   useEffect(() => {
     const fetchVehicles = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, 'vehicles'));
+        const querySnapshot = await getDocs(collection(db, "vehicles"));
         const vehiclesData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -55,7 +63,7 @@ export default function VehiclesClient() {
         })) as Vehicle[];
         setVehicles(vehiclesData);
       } catch (error) {
-        console.error('Error fetching vehicles:', error);
+        console.error("Error fetching vehicles:", error);
       } finally {
         setLoading(false);
       }
@@ -68,16 +76,16 @@ export default function VehiclesClient() {
     const params = Object.fromEntries(searchParams.entries());
     setFilters((prev) => ({
       ...prev,
-      make: params.make || '',
-      model: params.model || '',
-      bodyType: params.bodyType || '',
-      maxPrice: params.maxPrice || '',
-      keyword: params.keyword || '',
+      make: params.make || "",
+      model: params.model || "",
+      bodyType: params.bodyType || "",
+      maxPrice: params.maxPrice || "",
+      keyword: params.keyword || "",
     }));
   }, [searchParams]);
 
   const handleFilterChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setFilters((prev) => ({ ...prev, [name]: value }));
@@ -86,7 +94,7 @@ export default function VehiclesClient() {
   const applyFiltersToUrl = () => {
     const params = new URLSearchParams();
     Object.entries(filters).forEach(([key, value]) => {
-      if (value && key !== 'sortBy') {
+      if (value && key !== "sortBy") {
         params.set(key, value);
       }
     });
@@ -96,7 +104,7 @@ export default function VehiclesClient() {
 
   const clearFilters = () => {
     setFilters(FILTER_DEFAULTS);
-    router.push('/vehicles');
+    router.push("/vehicles");
   };
 
   const makes = useMemo(() => {
@@ -119,15 +127,23 @@ export default function VehiclesClient() {
 
     return vehicles.filter((vehicle) => {
       const matchesMake = filters.make ? vehicle.make === filters.make : true;
-      const matchesModel = filters.model ? vehicle.model === filters.model : true;
-      const matchesBody = filters.bodyType ? vehicle.bodyType === filters.bodyType : true;
+      const matchesModel = filters.model
+        ? vehicle.model === filters.model
+        : true;
+      const matchesBody = filters.bodyType
+        ? vehicle.bodyType === filters.bodyType
+        : true;
       const matchesTransmission = filters.transmission
         ? vehicle.transmission === filters.transmission
         : true;
-      const matchesFuel = filters.fuelType ? vehicle.fuelType === filters.fuelType : true;
+      const matchesFuel = filters.fuelType
+        ? vehicle.fuelType === filters.fuelType
+        : true;
       const matchesSeats = seats ? vehicle.seats === seats : true;
       const matchesKeyword = keyword
-        ? `${vehicle.make} ${vehicle.model} ${vehicle.description}`.toLowerCase().includes(keyword)
+        ? `${vehicle.make} ${vehicle.model} ${vehicle.description}`
+            .toLowerCase()
+            .includes(keyword)
         : true;
 
       return (
@@ -151,28 +167,32 @@ export default function VehiclesClient() {
   const sortedVehicles = useMemo(() => {
     const list = [...filteredVehicles];
     switch (filters.sortBy) {
-      case 'price-asc':
+      case "price-asc":
         return list.sort((a, b) => a.price - b.price);
-      case 'price-desc':
+      case "price-desc":
         return list.sort((a, b) => b.price - a.price);
-      case 'year-desc':
+      case "year-desc":
         return list.sort((a, b) => b.year - a.year);
-      case 'mileage-asc':
+      case "mileage-asc":
         return list.sort((a, b) => a.mileage - b.mileage);
       default:
-        return list.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+        return list.sort(
+          (a, b) => b.createdAt.getTime() - a.createdAt.getTime(),
+        );
     }
   }, [filteredVehicles, filters.sortBy]);
 
   const activeChips = Object.entries(filters)
-    .filter(([key, value]) => value && key !== 'sortBy')
+    .filter(([key, value]) => value && key !== "sortBy")
     .map(([key, value]) => ({ key, label: `${key}: ${value}` }));
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="font-display text-4xl text-slate-900">Our vehicle inventory</h1>
+          <h1 className="font-display text-4xl text-slate-900">
+            Our vehicle inventory
+          </h1>
           <p className="mt-2 text-sm text-slate-600">
             Showing {sortedVehicles.length} vehicles
           </p>
@@ -203,7 +223,10 @@ export default function VehiclesClient() {
       {activeChips.length > 0 && (
         <div className="mt-4 flex flex-wrap items-center gap-2">
           {activeChips.map((chip) => (
-            <span key={chip.key} className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600">
+            <span
+              key={chip.key}
+              className="rounded-full border border-slate-200 bg-white px-3 py-1 text-xs text-slate-600"
+            >
               {chip.label}
             </span>
           ))}
@@ -235,13 +258,20 @@ export default function VehiclesClient() {
           {loading ? (
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {Array.from({ length: 6 }).map((_, index) => (
-                <div key={index} className="h-80 animate-pulse rounded-2xl bg-white" />
+                <div
+                  key={index}
+                  className="h-80 animate-pulse rounded-2xl bg-white"
+                />
               ))}
             </div>
           ) : sortedVehicles.length === 0 ? (
             <div className="rounded-3xl border border-slate-200 bg-white p-8 text-center">
-              <p className="text-lg font-semibold text-slate-800">No vehicles match your filters.</p>
-              <p className="mt-2 text-sm text-slate-600">Try adjusting your search or contact us for help.</p>
+              <p className="text-lg font-semibold text-slate-800">
+                No vehicles match your filters.
+              </p>
+              <p className="mt-2 text-sm text-slate-600">
+                Try adjusting your search or contact us for help.
+              </p>
               <div className="mt-6 flex flex-wrap justify-center gap-3">
                 <button
                   type="button"
@@ -302,17 +332,33 @@ interface FilterFieldsProps {
   filters: typeof FILTER_DEFAULTS;
   makes: string[];
   models: string[];
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => void;
   onApply: () => void;
   onClear: () => void;
 }
 
-function FilterFields({ filters, makes, models, onChange, onApply, onClear }: FilterFieldsProps) {
+function FilterFields({
+  filters,
+  makes,
+  models,
+  onChange,
+  onApply,
+  onClear,
+}: FilterFieldsProps) {
   return (
     <div className="space-y-4 text-sm">
       <div>
-        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Make</label>
-        <select name="make" value={filters.make} onChange={onChange} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2">
+        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+          Make
+        </label>
+        <select
+          name="make"
+          value={filters.make}
+          onChange={onChange}
+          className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2"
+        >
           <option value="">Any</option>
           {makes.map((make) => (
             <option key={make} value={make}>
@@ -322,8 +368,15 @@ function FilterFields({ filters, makes, models, onChange, onApply, onClear }: Fi
         </select>
       </div>
       <div>
-        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Model</label>
-        <select name="model" value={filters.model} onChange={onChange} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2">
+        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+          Model
+        </label>
+        <select
+          name="model"
+          value={filters.model}
+          onChange={onChange}
+          className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2"
+        >
           <option value="">Any</option>
           {models.map((model) => (
             <option key={model} value={model}>
@@ -333,8 +386,15 @@ function FilterFields({ filters, makes, models, onChange, onApply, onClear }: Fi
         </select>
       </div>
       <div>
-        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Body type</label>
-        <select name="bodyType" value={filters.bodyType} onChange={onChange} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2">
+        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+          Body type
+        </label>
+        <select
+          name="bodyType"
+          value={filters.bodyType}
+          onChange={onChange}
+          className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2"
+        >
           <option value="">Any</option>
           {BODY_TYPES.map((type) => (
             <option key={type} value={type}>
@@ -345,49 +405,119 @@ function FilterFields({ filters, makes, models, onChange, onApply, onClear }: Fi
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Min price</label>
-          <input name="minPrice" value={filters.minPrice} onChange={onChange} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2" />
+          <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+            Min price
+          </label>
+          <input
+            name="minPrice"
+            value={filters.minPrice}
+            onChange={onChange}
+            className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2"
+          />
         </div>
         <div>
-          <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Max price</label>
-          <input name="maxPrice" value={filters.maxPrice} onChange={onChange} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2" />
+          <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+            Max price
+          </label>
+          <input
+            name="maxPrice"
+            value={filters.maxPrice}
+            onChange={onChange}
+            className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2"
+          />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Min year</label>
-          <input name="minYear" value={filters.minYear} onChange={onChange} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2" />
+          <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+            Min year
+          </label>
+          <input
+            name="minYear"
+            value={filters.minYear}
+            onChange={onChange}
+            className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2"
+          />
         </div>
         <div>
-          <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Max year</label>
-          <input name="maxYear" value={filters.maxYear} onChange={onChange} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2" />
+          <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+            Max year
+          </label>
+          <input
+            name="maxYear"
+            value={filters.maxYear}
+            onChange={onChange}
+            className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2"
+          />
         </div>
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Min mileage</label>
-          <input name="minMileage" value={filters.minMileage} onChange={onChange} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2" />
+          <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+            Min mileage
+          </label>
+          <input
+            name="minMileage"
+            value={filters.minMileage}
+            onChange={onChange}
+            className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2"
+          />
         </div>
         <div>
-          <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Max mileage</label>
-          <input name="maxMileage" value={filters.maxMileage} onChange={onChange} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2" />
+          <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+            Max mileage
+          </label>
+          <input
+            name="maxMileage"
+            value={filters.maxMileage}
+            onChange={onChange}
+            className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2"
+          />
         </div>
       </div>
       <div>
-        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Transmission</label>
-        <input name="transmission" value={filters.transmission} onChange={onChange} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2" />
+        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+          Transmission
+        </label>
+        <input
+          name="transmission"
+          value={filters.transmission}
+          onChange={onChange}
+          className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2"
+        />
       </div>
       <div>
-        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Fuel type</label>
-        <input name="fuelType" value={filters.fuelType} onChange={onChange} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2" />
+        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+          Fuel type
+        </label>
+        <input
+          name="fuelType"
+          value={filters.fuelType}
+          onChange={onChange}
+          className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2"
+        />
       </div>
       <div>
-        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Seats</label>
-        <input name="seats" value={filters.seats} onChange={onChange} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2" />
+        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+          Seats
+        </label>
+        <input
+          name="seats"
+          value={filters.seats}
+          onChange={onChange}
+          className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2"
+        />
       </div>
       <div>
-        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">Keyword</label>
-        <input name="keyword" value={filters.keyword} onChange={onChange} className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2" />
+        <label className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+          Keyword
+        </label>
+        <input
+          name="keyword"
+          value={filters.keyword}
+          onChange={onChange}
+          className="mt-2 w-full rounded-xl border border-slate-200 px-3 py-2"
+        />
       </div>
       <div className="flex flex-wrap gap-3 pt-2">
         <button
