@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { db } from '@/lib/firebase';
-import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore';
-import { Vehicle } from '@/lib/types';
-import Link from 'next/link';
+import { useEffect, useState } from "react";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { Vehicle } from "@/lib/types";
+import Link from "next/link";
 
 export default function VehiclesManagementPage() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
@@ -16,7 +16,7 @@ export default function VehiclesManagementPage() {
 
   const fetchVehicles = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'vehicles'));
+      const querySnapshot = await getDocs(collection(db, "vehicles"));
       const vehiclesData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -25,19 +25,19 @@ export default function VehiclesManagementPage() {
       })) as Vehicle[];
       setVehicles(vehiclesData);
     } catch (error) {
-      console.error('Error fetching vehicles:', error);
+      console.error("Error fetching vehicles:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDelete = async (vehicleId: string) => {
-    if (window.confirm('Are you sure you want to delete this vehicle?')) {
+    if (window.confirm("Are you sure you want to delete this vehicle?")) {
       try {
-        await deleteDoc(doc(db, 'vehicles', vehicleId));
+        await deleteDoc(doc(db, "vehicles", vehicleId));
         setVehicles(vehicles.filter((v) => v.id !== vehicleId));
       } catch (error) {
-        console.error('Error deleting vehicle:', error);
+        console.error("Error deleting vehicle:", error);
       }
     }
   };
@@ -71,11 +71,21 @@ export default function VehiclesManagementPage() {
           <table className="w-full">
             <thead className="bg-gray-50 border-b">
               <tr>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Vehicle</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Year</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Price</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Mileage</th>
-                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">Actions</th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                  Vehicle
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                  Year
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                  Price
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                  Mileage
+                </th>
+                <th className="px-6 py-3 text-left text-sm font-semibold text-gray-900">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -99,12 +109,12 @@ export default function VehiclesManagementPage() {
                   <td className="px-6 py-4 text-gray-700">
                     {Number.isFinite(vehicle.price)
                       ? `$${vehicle.price.toLocaleString()}`
-                      : 'Contact for price'}
+                      : "Contact for price"}
                   </td>
                   <td className="px-6 py-4 text-gray-700">
                     {Number.isFinite(vehicle.mileage)
                       ? `${vehicle.mileage.toLocaleString()} km`
-                      : 'Mileage available on request'}
+                      : "Mileage available on request"}
                   </td>
                   <td className="px-6 py-4 flex gap-2">
                     <Link

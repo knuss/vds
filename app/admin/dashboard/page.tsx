@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { db } from '@/lib/firebase';
-import { collection, getDocs, query } from 'firebase/firestore';
+import { useEffect, useState } from "react";
+import { db } from "@/lib/firebase";
+import { collection, getDocs, query } from "firebase/firestore";
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState({
@@ -20,29 +20,31 @@ export default function AdminDashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const vehiclesSnap = await getDocs(collection(db, 'vehicles'));
-        const inquiriesSnap = await getDocs(collection(db, 'inquiries'));
-        const testDrivesSnap = await getDocs(query(collection(db, 'testDrives')));
-        const tradeInsSnap = await getDocs(collection(db, 'tradeInLeads'));
+        const vehiclesSnap = await getDocs(collection(db, "vehicles"));
+        const inquiriesSnap = await getDocs(collection(db, "inquiries"));
+        const testDrivesSnap = await getDocs(
+          query(collection(db, "testDrives")),
+        );
+        const tradeInsSnap = await getDocs(collection(db, "tradeInLeads"));
 
         const publishedVehicles = vehiclesSnap.docs.filter(
-          (doc) => !doc.data().isSold && !doc.data().isReserved
+          (doc) => !doc.data().isSold && !doc.data().isReserved,
         ).length;
 
         const featuredVehicles = vehiclesSnap.docs.filter(
-          (doc) => doc.data().isFeatured
+          (doc) => doc.data().isFeatured,
         ).length;
 
         const soldVehicles = vehiclesSnap.docs.filter(
-          (doc) => doc.data().isSold
+          (doc) => doc.data().isSold,
         ).length;
 
         const reservedVehicles = vehiclesSnap.docs.filter(
-          (doc) => doc.data().isReserved
+          (doc) => doc.data().isReserved,
         ).length;
 
         const pendingTestDrives = testDrivesSnap.docs.filter(
-          (doc) => doc.data().status === 'pending'
+          (doc) => doc.data().status === "pending",
         ).length;
 
         setStats({
@@ -56,7 +58,7 @@ export default function AdminDashboard() {
           tradeInLeads: tradeInsSnap.size,
         });
       } catch (error) {
-        console.error('Error fetching stats:', error);
+        console.error("Error fetching stats:", error);
       } finally {
         setLoading(false);
       }
@@ -78,7 +80,9 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm">Total Vehicles</p>
-                <p className="text-4xl font-bold text-gray-900">{stats.totalVehicles}</p>
+                <p className="text-4xl font-bold text-gray-900">
+                  {stats.totalVehicles}
+                </p>
               </div>
               <div className="bg-blue-100 rounded-lg p-3">
                 <span className="text-2xl">🚗</span>
@@ -90,7 +94,9 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm">Published Vehicles</p>
-                <p className="text-4xl font-bold text-gray-900">{stats.publishedVehicles}</p>
+                <p className="text-4xl font-bold text-gray-900">
+                  {stats.publishedVehicles}
+                </p>
               </div>
               <div className="bg-blue-50 rounded-lg p-3">
                 <span className="text-2xl">✅</span>
@@ -102,7 +108,9 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm">Featured Vehicles</p>
-                <p className="text-4xl font-bold text-gray-900">{stats.featuredVehicles}</p>
+                <p className="text-4xl font-bold text-gray-900">
+                  {stats.featuredVehicles}
+                </p>
               </div>
               <div className="bg-amber-100 rounded-lg p-3">
                 <span className="text-2xl">⭐</span>
@@ -114,7 +122,9 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm">Sold Vehicles</p>
-                <p className="text-4xl font-bold text-gray-900">{stats.soldVehicles}</p>
+                <p className="text-4xl font-bold text-gray-900">
+                  {stats.soldVehicles}
+                </p>
               </div>
               <div className="bg-emerald-100 rounded-lg p-3">
                 <span className="text-2xl">🏁</span>
@@ -126,7 +136,9 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm">Reserved Vehicles</p>
-                <p className="text-4xl font-bold text-gray-900">{stats.reservedVehicles}</p>
+                <p className="text-4xl font-bold text-gray-900">
+                  {stats.reservedVehicles}
+                </p>
               </div>
               <div className="bg-purple-100 rounded-lg p-3">
                 <span className="text-2xl">🔖</span>
@@ -139,7 +151,9 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm">Total Inquiries</p>
-                <p className="text-4xl font-bold text-gray-900">{stats.totalInquiries}</p>
+                <p className="text-4xl font-bold text-gray-900">
+                  {stats.totalInquiries}
+                </p>
               </div>
               <div className="bg-green-100 rounded-lg p-3">
                 <span className="text-2xl">📧</span>
@@ -152,7 +166,9 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm">Pending Test Drives</p>
-                <p className="text-4xl font-bold text-gray-900">{stats.pendingTestDrives}</p>
+                <p className="text-4xl font-bold text-gray-900">
+                  {stats.pendingTestDrives}
+                </p>
               </div>
               <div className="bg-orange-100 rounded-lg p-3">
                 <span className="text-2xl">📅</span>
@@ -164,7 +180,9 @@ export default function AdminDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-600 text-sm">Trade-In Leads</p>
-                <p className="text-4xl font-bold text-gray-900">{stats.tradeInLeads}</p>
+                <p className="text-4xl font-bold text-gray-900">
+                  {stats.tradeInLeads}
+                </p>
               </div>
               <div className="bg-slate-100 rounded-lg p-3">
                 <span className="text-2xl">🔁</span>

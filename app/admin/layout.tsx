@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
-import { auth } from '@/lib/firebase';
-import { useEffect, useState } from 'react';
-import { signOut } from 'firebase/auth';
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { auth } from "@/lib/firebase";
+import { useEffect, useState } from "react";
+import { signOut } from "firebase/auth";
 
 export default function AdminLayout({
   children,
@@ -15,7 +15,7 @@ export default function AdminLayout({
   const pathname = usePathname();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const isLoginRoute = pathname === '/admin/login';
+  const isLoginRoute = pathname === "/admin/login";
 
   useEffect(() => {
     if (isLoginRoute) {
@@ -29,7 +29,7 @@ export default function AdminLayout({
         setLoading(false);
       } else {
         setLoading(false);
-        router.push('/admin/login');
+        router.push("/admin/login");
       }
     });
     return () => unsubscribe();
@@ -42,14 +42,18 @@ export default function AdminLayout({
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      router.push('/');
+      router.push("/");
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error("Error logging out:", error);
     }
   };
 
   if (loading) {
-    return <div className="flex items-center justify-center h-screen">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
   }
 
   if (!user) {

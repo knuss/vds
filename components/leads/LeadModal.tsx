@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { db } from '@/lib/firebase';
+import { useEffect, useState } from "react";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { db } from "@/lib/firebase";
 
-export type LeadType = 'inquiry' | 'testDrive' | 'tradeIn';
+export type LeadType = "inquiry" | "testDrive" | "tradeIn";
 
 interface LeadModalProps {
   type: LeadType;
@@ -16,40 +16,46 @@ interface LeadModalProps {
 
 const TYPE_CONFIG = {
   inquiry: {
-    title: 'Enquire Now',
-    collection: 'inquiries',
+    title: "Enquire Now",
+    collection: "inquiries",
   },
   testDrive: {
-    title: 'Book Test Drive',
-    collection: 'testDrives',
+    title: "Book Test Drive",
+    collection: "testDrives",
   },
   tradeIn: {
-    title: 'Value My Trade-In',
-    collection: 'tradeInLeads',
+    title: "Value My Trade-In",
+    collection: "tradeInLeads",
   },
 } as const;
 
-export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle }: LeadModalProps) {
+export default function LeadModal({
+  type,
+  open,
+  onClose,
+  vehicleId,
+  vehicleTitle,
+}: LeadModalProps) {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState<Record<string, string>>({});
 
   useEffect(() => {
     if (open) {
       setSubmitted(false);
-      setError('');
+      setError("");
       setFormData({
-        name: '',
-        phone: '',
-        email: '',
-        message: '',
-        preferredDate: '',
-        preferredTime: '',
-        make: '',
-        model: '',
-        year: '',
-        mileage: '',
+        name: "",
+        phone: "",
+        email: "",
+        message: "",
+        preferredDate: "",
+        preferredTime: "",
+        make: "",
+        model: "",
+        year: "",
+        mileage: "",
       });
     }
   }, [open, vehicleTitle]);
@@ -59,7 +65,7 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
   const { title, collection: collectionName } = TYPE_CONFIG[type];
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -68,19 +74,19 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
-    setError('');
+    setError("");
 
     try {
       const payload: Record<string, unknown> = {
         createdAt: serverTimestamp(),
-        status: 'new',
+        status: "new",
       };
 
       if (vehicleId) payload.vehicleId = vehicleId;
       if (vehicleTitle) payload.vehicleTitle = vehicleTitle;
 
       switch (type) {
-        case 'testDrive':
+        case "testDrive":
           Object.assign(payload, {
             name: formData.name,
             phone: formData.phone,
@@ -90,7 +96,7 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
             message: formData.message,
           });
           break;
-        case 'tradeIn':
+        case "tradeIn":
           Object.assign(payload, {
             name: formData.name,
             phone: formData.phone,
@@ -114,7 +120,7 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
       await addDoc(collection(db, collectionName), payload);
       setSubmitted(true);
     } catch (err: any) {
-      setError(err.message || 'Unable to submit your request');
+      setError(err.message || "Unable to submit your request");
     } finally {
       setSubmitting(false);
     }
@@ -143,7 +149,7 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
           <div className="grid gap-3 sm:grid-cols-2">
             <input
               name="name"
-              value={formData.name || ''}
+              value={formData.name || ""}
               onChange={handleChange}
               placeholder="Full name"
               className="rounded-2xl border border-slate-200 px-4 py-2"
@@ -151,7 +157,7 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
             />
             <input
               name="phone"
-              value={formData.phone || ''}
+              value={formData.phone || ""}
               onChange={handleChange}
               placeholder="Phone"
               className="rounded-2xl border border-slate-200 px-4 py-2"
@@ -161,18 +167,18 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
           <input
             name="email"
             type="email"
-            value={formData.email || ''}
+            value={formData.email || ""}
             onChange={handleChange}
             placeholder="Email"
             className="rounded-2xl border border-slate-200 px-4 py-2"
             required
           />
 
-          {type === 'testDrive' && (
+          {type === "testDrive" && (
             <div className="grid gap-3 sm:grid-cols-2">
               <input
                 name="preferredDate"
-                value={formData.preferredDate || ''}
+                value={formData.preferredDate || ""}
                 onChange={handleChange}
                 placeholder="Preferred date"
                 className="rounded-2xl border border-slate-200 px-4 py-2"
@@ -180,7 +186,7 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
               />
               <input
                 name="preferredTime"
-                value={formData.preferredTime || ''}
+                value={formData.preferredTime || ""}
                 onChange={handleChange}
                 placeholder="Preferred time"
                 className="rounded-2xl border border-slate-200 px-4 py-2"
@@ -189,20 +195,19 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
             </div>
           )}
 
-
-          {type === 'tradeIn' && (
+          {type === "tradeIn" && (
             <>
               <div className="grid gap-3 sm:grid-cols-2">
                 <input
                   name="make"
-                  value={formData.make || ''}
+                  value={formData.make || ""}
                   onChange={handleChange}
                   placeholder="Vehicle make"
                   className="rounded-2xl border border-slate-200 px-4 py-2"
                 />
                 <input
                   name="model"
-                  value={formData.model || ''}
+                  value={formData.model || ""}
                   onChange={handleChange}
                   placeholder="Vehicle model"
                   className="rounded-2xl border border-slate-200 px-4 py-2"
@@ -211,14 +216,14 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
               <div className="grid gap-3 sm:grid-cols-2">
                 <input
                   name="year"
-                  value={formData.year || ''}
+                  value={formData.year || ""}
                   onChange={handleChange}
                   placeholder="Year"
                   className="rounded-2xl border border-slate-200 px-4 py-2"
                 />
                 <input
                   name="mileage"
-                  value={formData.mileage || ''}
+                  value={formData.mileage || ""}
                   onChange={handleChange}
                   placeholder="Mileage"
                   className="rounded-2xl border border-slate-200 px-4 py-2"
@@ -229,7 +234,7 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
 
           <textarea
             name="message"
-            value={formData.message || ''}
+            value={formData.message || ""}
             onChange={handleChange}
             placeholder="Message"
             rows={4}
@@ -241,7 +246,7 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
             disabled={submitting}
             className="rounded-2xl bg-slate-900 px-4 py-2 text-sm font-semibold text-white"
           >
-            {submitting ? 'Submitting...' : 'Submit'}
+            {submitting ? "Submitting..." : "Submit"}
           </button>
 
           {submitted && (

@@ -1,13 +1,16 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function FindUs() {
   return (
     <section className="py-14">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
         <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <h2 className="font-display text-3xl text-slate-900">Find us in Preston</h2>
+          <h2 className="font-display text-3xl text-slate-900">
+            Find us in Preston
+          </h2>
           <p className="mt-4 text-sm text-slate-600">
-            Visit our yard to inspect vehicles, chat with our team, and book a test drive.
+            Visit our yard to inspect vehicles, chat with our team, and book a
+            test drive.
           </p>
           <div className="mt-6 space-y-2 text-sm text-slate-600">
             <p>721-725 High St, Preston VIC 3072, Australia</p>

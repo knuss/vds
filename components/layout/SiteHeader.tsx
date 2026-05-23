@@ -1,12 +1,12 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 const NAV_LINKS = [
-  { href: '/', label: 'Home' },
-  { href: '/vehicles', label: 'Our Stock' },
-  { href: '/sell-your-car', label: 'Sell Your Car' },
-  { href: '/warranty', label: 'Warranty' },
-  { href: '/about', label: 'About Us' },
-  { href: '/contact', label: 'Contact Us' },
+  { href: "/", label: "Home" },
+  { href: "/vehicles", label: "Our Stock" },
+  { href: "/sell-your-car", label: "Sell Your Car" },
+  { href: "/warranty", label: "Warranty" },
+  { href: "/about", label: "About Us" },
+  { href: "/contact", label: "Contact Us" },
 ];
 
 export default function SiteHeader() {
@@ -14,7 +14,10 @@ export default function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4">
-          <Link href="/" className="font-display text-3xl tracking-wide text-slate-900">
+          <Link
+            href="/"
+            className="font-display text-3xl tracking-wide text-slate-900"
+          >
             The Car Garage AU
           </Link>
           <span className="hidden rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600 md:inline-flex">
@@ -24,7 +27,11 @@ export default function SiteHeader() {
 
         <nav className="hidden items-center gap-6 lg:flex">
           {NAV_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="text-sm font-semibold text-slate-700 hover:text-slate-900">
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-sm font-semibold text-slate-700 hover:text-slate-900"
+            >
               {link.label}
             </Link>
           ))}
@@ -52,7 +59,11 @@ export default function SiteHeader() {
           <div className="absolute right-0 mt-3 w-56 rounded-2xl border border-slate-200 bg-white p-4 shadow-lg">
             <div className="flex flex-col gap-3">
               {NAV_LINKS.map((link) => (
-                <Link key={link.href} href={link.href} className="text-sm font-semibold text-slate-700 hover:text-slate-900">
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-sm font-semibold text-slate-700 hover:text-slate-900"
+                >
                   {link.label}
                 </Link>
               ))}
