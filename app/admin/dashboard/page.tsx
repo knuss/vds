@@ -13,7 +13,6 @@ export default function AdminDashboard() {
     reservedVehicles: 0,
     totalInquiries: 0,
     pendingTestDrives: 0,
-    financeLeads: 0,
     tradeInLeads: 0,
   });
   const [loading, setLoading] = useState(true);
@@ -24,7 +23,6 @@ export default function AdminDashboard() {
         const vehiclesSnap = await getDocs(collection(db, 'vehicles'));
         const inquiriesSnap = await getDocs(collection(db, 'inquiries'));
         const testDrivesSnap = await getDocs(query(collection(db, 'testDrives')));
-        const financeLeadsSnap = await getDocs(collection(db, 'financeLeads'));
         const tradeInsSnap = await getDocs(collection(db, 'tradeInLeads'));
 
         const publishedVehicles = vehiclesSnap.docs.filter(
@@ -55,7 +53,6 @@ export default function AdminDashboard() {
           reservedVehicles,
           totalInquiries: inquiriesSnap.size,
           pendingTestDrives,
-          financeLeads: financeLeadsSnap.size,
           tradeInLeads: tradeInsSnap.size,
         });
       } catch (error) {
@@ -166,18 +163,6 @@ export default function AdminDashboard() {
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-600 text-sm">Finance Leads</p>
-                <p className="text-4xl font-bold text-gray-900">{stats.financeLeads}</p>
-              </div>
-              <div className="bg-slate-100 rounded-lg p-3">
-                <span className="text-2xl">💳</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow p-6">
-            <div className="flex items-center justify-between">
-              <div>
                 <p className="text-gray-600 text-sm">Trade-In Leads</p>
                 <p className="text-4xl font-bold text-gray-900">{stats.tradeInLeads}</p>
               </div>
@@ -210,12 +195,6 @@ export default function AdminDashboard() {
             className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition font-semibold text-center"
           >
             View Test Drives
-          </a>
-          <a
-            href="/admin/finance-leads"
-            className="bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition font-semibold text-center"
-          >
-            Finance Leads
           </a>
           <a
             href="/admin/trade-ins"

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
-export type LeadType = 'inquiry' | 'testDrive' | 'finance' | 'tradeIn';
+export type LeadType = 'inquiry' | 'testDrive' | 'tradeIn';
 
 interface LeadModalProps {
   type: LeadType;
@@ -22,10 +22,6 @@ const TYPE_CONFIG = {
   testDrive: {
     title: 'Book Test Drive',
     collection: 'testDrives',
-  },
-  finance: {
-    title: 'Apply for Finance',
-    collection: 'financeLeads',
   },
   tradeIn: {
     title: 'Value My Trade-In',
@@ -50,9 +46,6 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
         message: '',
         preferredDate: '',
         preferredTime: '',
-        employmentStatus: '',
-        budget: '',
-        vehicleOfInterest: vehicleTitle || '',
         make: '',
         model: '',
         year: '',
@@ -94,17 +87,6 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
             email: formData.email,
             preferredDate: formData.preferredDate,
             preferredTime: formData.preferredTime,
-            message: formData.message,
-          });
-          break;
-        case 'finance':
-          Object.assign(payload, {
-            name: formData.name,
-            phone: formData.phone,
-            email: formData.email,
-            employmentStatus: formData.employmentStatus,
-            budget: formData.budget,
-            vehicleOfInterest: formData.vehicleOfInterest,
             message: formData.message,
           });
           break;
@@ -207,31 +189,6 @@ export default function LeadModal({ type, open, onClose, vehicleId, vehicleTitle
             </div>
           )}
 
-          {type === 'finance' && (
-            <>
-              <input
-                name="employmentStatus"
-                value={formData.employmentStatus || ''}
-                onChange={handleChange}
-                placeholder="Employment status"
-                className="rounded-2xl border border-slate-200 px-4 py-2"
-              />
-              <input
-                name="budget"
-                value={formData.budget || ''}
-                onChange={handleChange}
-                placeholder="Approximate budget"
-                className="rounded-2xl border border-slate-200 px-4 py-2"
-              />
-              <input
-                name="vehicleOfInterest"
-                value={formData.vehicleOfInterest || ''}
-                onChange={handleChange}
-                placeholder="Vehicle of interest"
-                className="rounded-2xl border border-slate-200 px-4 py-2"
-              />
-            </>
-          )}
 
           {type === 'tradeIn' && (
             <>

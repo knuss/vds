@@ -19,7 +19,7 @@ const bodyFont = Source_Sans_3({
 
 export const metadata: Metadata = {
   title: 'The Car Garage AU',
-  description: 'Quality used cars in Sydney with drive-away pricing and finance options.',
+  description: 'Quality used cars in Sydney with drive-away pricing and trade-ins welcome.',
 };
 
 export default function RootLayout({

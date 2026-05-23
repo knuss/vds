@@ -4,7 +4,6 @@ const NAV_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/vehicles', label: 'Our Stock' },
   { href: '/sell-your-car', label: 'Sell Your Car' },
-  { href: '/finance', label: 'Finance' },
   { href: '/warranty', label: 'Warranty' },
   { href: '/about', label: 'About Us' },
   { href: '/contact', label: 'Contact Us' },
@@ -39,7 +38,7 @@ export default function SiteHeader() {
             Search Stock
           </Link>
           <Link
-            href="tel:+61280000000"
+            href="tel:+61431000280"
             className="rounded-full bg-amber-400 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-amber-300"
           >
             Call Sales

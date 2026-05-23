@@ -14,8 +14,7 @@ export default function Hero() {
             Quality Used Cars in Western Sydney
           </h1>
           <p className="mt-5 max-w-xl text-lg text-slate-200">
-            Browse inspected used vehicles with drive-away pricing, flexible finance options, trade-ins welcome,
-            and friendly local service.
+            Browse inspected used vehicles with drive-away pricing, trade-ins welcome, and friendly local service.
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link

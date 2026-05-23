@@ -7,13 +7,13 @@ export default function SiteFooter() {
         <div>
           <p className="font-display text-2xl text-white">The Car Garage AU</p>
           <p className="mt-3 text-sm text-slate-400">
-            Trusted used cars with drive-away pricing, friendly service, and flexible finance options.
+            Trusted used cars with drive-away pricing, friendly service, and trade-ins welcome.
           </p>
           <div className="mt-6 space-y-2 text-sm">
-            <p>17 Parramatta Road, Lidcombe NSW</p>
+            <p>721-725 High St, Preston VIC 3072, Australia</p>
             <p>
-              <Link href="tel:+61280000000" className="hover:text-white">
-                +61 2 8000 0000
+              <Link href="tel:+61431000280" className="hover:text-white">
+                +61 431 000 280
               </Link>
             </p>
             <p>
@@ -39,7 +39,6 @@ export default function SiteFooter() {
         <div>
           <h3 className="text-sm font-semibold uppercase tracking-widest text-slate-400">Customer Tools</h3>
           <ul className="mt-4 space-y-2 text-sm">
-            <li><Link href="/finance" className="hover:text-white">Finance</Link></li>
             <li><Link href="/sell-your-car" className="hover:text-white">Sell Your Car</Link></li>
             <li><Link href="/warranty" className="hover:text-white">Warranty</Link></li>
             <li><Link href="/contact" className="hover:text-white">Book Test Drive</Link></li>

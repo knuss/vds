@@ -206,13 +206,13 @@ export default function VehicleDetailsPage() {
           <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_1fr]">
             <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
               <h2 className="text-xl font-semibold text-slate-900">Find us</h2>
-              <p className="mt-3 text-sm text-slate-600">17 Parramatta Road, Lidcombe NSW</p>
+              <p className="mt-3 text-sm text-slate-600">721-725 High St, Preston VIC 3072, Australia</p>
               <p className="text-sm text-slate-600">Open today 9:00 AM - 5:30 PM</p>
             </div>
             <div className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm">
               <iframe
                 title="Dealership location"
-                src="https://www.google.com/maps?q=17+Parramatta+Road+Lidcombe+NSW&output=embed"
+                src="https://www.google.com/maps?q=721-725+High+St,+Preston+VIC+3072,+Australia&output=embed"
                 className="h-56 w-full"
                 loading="lazy"
               />
@@ -224,7 +224,7 @@ export default function VehicleDetailsPage() {
           <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
             <p className="text-xs text-slate-500">Drive Away</p>
             <p className="text-3xl font-semibold text-slate-900">${vehicle.price.toLocaleString()}</p>
-            <p className="mt-2 text-sm text-slate-600">Call us on +61 2 8000 0000</p>
+            <p className="mt-2 text-sm text-slate-600">Call us on +61 431 000 280</p>
             <div className="mt-6">
               <LeadActionBar
                 vehicleId={vehicle.id}

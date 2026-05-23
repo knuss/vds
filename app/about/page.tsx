@@ -18,7 +18,7 @@ export default function AboutPage() {
           <h2 className="font-display text-3xl text-slate-900">Our story</h2>
           <p className="mt-4 text-sm text-slate-600">
             We are a family-operated dealership focused on transparency, reliability, and friendly service.
-            Our team hand-picks vehicles and supports you through finance, trade-ins, and after-sales care.
+            Our team hand-picks vehicles and supports you through trade-ins and after-sales care.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {['Transparency', 'Reliability', 'Friendly service', 'Quality stock'].map((value) => (

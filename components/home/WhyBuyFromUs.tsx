@@ -16,8 +16,8 @@ const ITEMS = [
     description: 'Upgrade your car with a simple trade-in process.',
   },
   {
-    title: 'Finance options',
-    description: 'Flexible plans to suit different budgets.',
+    title: 'Friendly guidance',
+    description: 'Clear, no-pressure advice from a local team.',
   },
   {
     title: 'Warranty options',

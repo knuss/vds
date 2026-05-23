@@ -7,7 +7,7 @@ const REVIEWS = [
   },
   {
     name: 'Emily K.',
-    quote: 'Smooth finance process and clear communication. Highly recommend.',
+    quote: 'Smooth purchase experience and clear communication. Highly recommend.',
   },
   {
     name: 'Jade M.',

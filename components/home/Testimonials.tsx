@@ -5,7 +5,7 @@ const TESTIMONIALS = [
   },
   {
     name: 'Mark L.',
-    quote: 'Great selection of SUVs and a smooth finance process. Highly recommended.',
+    quote: 'Great selection of SUVs and clear, helpful advice. Highly recommended.',
   },
   {
     name: 'Priya D.',

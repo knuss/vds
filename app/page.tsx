@@ -3,7 +3,6 @@ import StockSearch from '@/components/home/StockSearch';
 import BodyTypeShortcuts from '@/components/home/BodyTypeShortcuts';
 import FeaturedVehicles from '@/components/home/FeaturedVehicles';
 import WhyBuyFromUs from '@/components/home/WhyBuyFromUs';
-import FinanceCta from '@/components/home/FinanceCta';
 import SellYourCar from '@/components/home/SellYourCar';
 import Testimonials from '@/components/home/Testimonials';
 import FindUs from '@/components/home/FindUs';
@@ -16,7 +15,6 @@ export default function HomePage() {
       <BodyTypeShortcuts />
       <FeaturedVehicles />
       <WhyBuyFromUs />
-      <FinanceCta />
       <SellYourCar />
       <Testimonials />
       <FindUs />

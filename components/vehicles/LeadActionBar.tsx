@@ -30,13 +30,6 @@ export default function LeadActionBar({ vehicleId, vehicleTitle }: LeadActionBar
         </button>
         <button
           type="button"
-          onClick={() => setActiveType('finance')}
-          className="rounded-full border border-slate-300 px-6 py-3 text-center text-sm font-semibold text-slate-700"
-        >
-          Apply for Finance
-        </button>
-        <button
-          type="button"
           onClick={() => setActiveType('tradeIn')}
           className="rounded-full border border-slate-300 px-6 py-3 text-center text-sm font-semibold text-slate-700"
         >

@@ -11,6 +11,10 @@ interface VehicleCardProps {
 export default function VehicleCard({ vehicle, variant = 'listing' }: VehicleCardProps) {
   const badge = vehicle.badge || (vehicle.isFeatured ? 'Featured' : 'Just Listed');
   const driveAwayLabel = vehicle.isDriveAway ? 'Drive Away' : 'Price';
+  const priceLabel = Number.isFinite(vehicle.price) ? `$${vehicle.price.toLocaleString()}` : 'Contact for price';
+  const mileageLabel = Number.isFinite(vehicle.mileage)
+    ? `${vehicle.mileage.toLocaleString()} km`
+    : 'Mileage available on request';
 
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
@@ -34,11 +38,11 @@ export default function VehicleCard({ vehicle, variant = 'listing' }: VehicleCar
           <div>
             <p className="text-xs text-slate-500">{driveAwayLabel}</p>
             <p className="text-2xl font-semibold text-slate-900">
-              ${vehicle.price.toLocaleString()}
+              {priceLabel}
             </p>
           </div>
           <div className="text-right text-xs text-slate-500">
-            <p>{vehicle.mileage.toLocaleString()} km</p>
+            <p>{mileageLabel}</p>
             <p>{vehicle.transmission}</p>
           </div>
         </div>
@@ -63,7 +67,7 @@ export default function VehicleCard({ vehicle, variant = 'listing' }: VehicleCar
             Enquire Now
           </Link>
           <Link
-            href="tel:+61280000000"
+            href="tel:+61431000280"
             className="rounded-full border border-slate-300 px-4 py-2 text-center text-xs font-semibold text-slate-700 sm:col-span-2"
           >
             Call Sales

@@ -8,10 +8,6 @@ const FAQS = [
     answer: 'Yes. We welcome trade-ins and can provide a quick valuation.',
   },
   {
-    question: 'Is finance available?',
-    answer: 'We offer flexible finance options subject to approval.',
-  },
-  {
     question: 'Are prices drive-away?',
     answer: 'Many of our vehicles are advertised with drive-away pricing. Ask the team for details.',
   },
@@ -29,7 +25,7 @@ const FAQS = [
   },
   {
     question: 'What documents do I need?',
-    answer: 'You will need a valid drivers license and proof of address for finance.',
+    answer: 'Please bring a valid drivers license and proof of address for test drives or paperwork.',
   },
 ];
 

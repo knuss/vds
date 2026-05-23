@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { auth } from '@/lib/firebase';
 import { useEffect, useState } from 'react';
 import { signOut } from 'firebase/auth';
@@ -12,20 +12,32 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const isLoginRoute = pathname === '/admin/login';
 
   useEffect(() => {
+    if (isLoginRoute) {
+      setLoading(false);
+      return;
+    }
+
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
         setUser(currentUser);
         setLoading(false);
       } else {
+        setLoading(false);
         router.push('/admin/login');
       }
     });
     return () => unsubscribe();
-  }, [router]);
+  }, [isLoginRoute, router]);
+
+  if (isLoginRoute) {
+    return <>{children}</>;
+  }
 
   const handleLogout = async () => {
     try {
@@ -38,6 +50,10 @@ export default function AdminLayout({
 
   if (loading) {
     return <div className="flex items-center justify-center h-screen">Loading...</div>;
+  }
+
+  if (!user) {
+    return null;
   }
 
   return (
@@ -73,12 +89,6 @@ export default function AdminLayout({
             className="block px-6 py-3 hover:bg-gray-800 transition"
           >
             Test Drives
-          </Link>
-          <Link
-            href="/admin/finance-leads"
-            className="block px-6 py-3 hover:bg-gray-800 transition"
-          >
-            Finance Leads
           </Link>
           <Link
             href="/admin/trade-ins"

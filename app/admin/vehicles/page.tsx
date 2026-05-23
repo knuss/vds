@@ -96,8 +96,16 @@ export default function VehiclesManagementPage() {
                     </div>
                   </td>
                   <td className="px-6 py-4 text-gray-700">{vehicle.year}</td>
-                  <td className="px-6 py-4 text-gray-700">${vehicle.price.toLocaleString()}</td>
-                  <td className="px-6 py-4 text-gray-700">{vehicle.mileage.toLocaleString()} km</td>
+                  <td className="px-6 py-4 text-gray-700">
+                    {Number.isFinite(vehicle.price)
+                      ? `$${vehicle.price.toLocaleString()}`
+                      : 'Contact for price'}
+                  </td>
+                  <td className="px-6 py-4 text-gray-700">
+                    {Number.isFinite(vehicle.mileage)
+                      ? `${vehicle.mileage.toLocaleString()} km`
+                      : 'Mileage available on request'}
+                  </td>
                   <td className="px-6 py-4 flex gap-2">
                     <Link
                       href={`/admin/vehicles/${vehicle.id}/edit`}
