@@ -21,7 +21,7 @@ export default function SiteHeader() {
             The Car Garage AU
           </Link>
           <span className="hidden rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600 md:inline-flex">
-            Used Cars - Sydney
+            Used Cars - Melbourne
           </span>
         </div>
 

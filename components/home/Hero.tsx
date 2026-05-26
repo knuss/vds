@@ -10,10 +10,10 @@ export default function Hero() {
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-amber-300">
-            Sydney Used Cars
+            Melbourne Used Cars
           </p>
           <h1 className="font-display text-5xl leading-tight sm:text-6xl">
-            Quality Used Cars in Western Sydney
+            Quality Used Cars in Melbourne.
           </h1>
           <p className="mt-5 max-w-xl text-lg text-slate-200">
             Browse inspected used vehicles with drive-away pricing, trade-ins
@@ -81,7 +81,7 @@ export default function Hero() {
                 <p>Vehicles</p>
               </div>
               <div>
-                <p className="text-base font-semibold text-white">4.8</p>
+                <p className="text-base font-semibold text-white">5.0</p>
                 <p>Google Rating</p>
               </div>
               <div>

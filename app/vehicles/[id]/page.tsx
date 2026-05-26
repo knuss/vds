@@ -108,7 +108,7 @@ export default function VehicleDetailsPage() {
             {vehicle.isDriveAway ? "Drive Away" : "Price"}
           </p>
           <p className="text-4xl font-semibold text-slate-900">
-            ${vehicle.price.toLocaleString()}
+            ${(vehicle.price ?? 0).toLocaleString()}
           </p>
           <p className="mt-1 text-xs text-slate-500">
             {vehicle.condition} condition
@@ -151,7 +151,7 @@ export default function VehicleDetailsPage() {
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               <Spec
                 label="Mileage"
-                value={`${vehicle.mileage.toLocaleString()} km`}
+                value={`${(vehicle.mileage ?? 0).toLocaleString()} km`}
               />
               <Spec label="Year" value={`${vehicle.year}`} />
               <Spec label="Transmission" value={vehicle.transmission} />

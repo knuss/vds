@@ -108,11 +108,15 @@ export default function VehiclesClient() {
   };
 
   const makes = useMemo(() => {
-    return Array.from(new Set(vehicles.map((vehicle) => vehicle.make))).sort();
+    return Array.from(new Set(vehicles.map((vehicle) => vehicle.make)))
+      .filter((make) => typeof make === "string" && make.trim() !== "")
+      .sort();
   }, [vehicles]);
 
   const models = useMemo(() => {
-    return Array.from(new Set(vehicles.map((vehicle) => vehicle.model))).sort();
+    return Array.from(new Set(vehicles.map((vehicle) => vehicle.model)))
+      .filter((model) => typeof model === "string" && model.trim() !== "")
+      .sort();
   }, [vehicles]);
 
   const filteredVehicles = useMemo(() => {

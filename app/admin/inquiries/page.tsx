@@ -96,6 +96,9 @@ export default function InquiriesPage() {
       {/* Inquiry Details */}
       <div className="lg:col-span-2">
         {selectedInquiry ? (
+          (() => {
+            const status = selectedInquiry.status || 'new';
+            return (
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex justify-between items-start mb-6">
               <div>
@@ -105,12 +108,12 @@ export default function InquiriesPage() {
               </div>
               <span
                 className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                  selectedInquiry.status === 'new'
+                  status === 'new'
                     ? 'bg-yellow-100 text-yellow-800'
                     : 'bg-green-100 text-green-800'
                 }`}
               >
-                {selectedInquiry.status.charAt(0).toUpperCase() + selectedInquiry.status.slice(1)}
+                {status.charAt(0).toUpperCase() + status.slice(1)}
               </span>
             </div>
 
@@ -137,6 +140,8 @@ export default function InquiriesPage() {
               </button>
             </div>
           </div>
+            );
+          })()
         ) : (
           <div className="bg-white rounded-lg shadow p-8 text-center h-full flex items-center justify-center">
             <p className="text-gray-600">Select an inquiry to view details</p>
