@@ -1,15 +1,22 @@
-import React from 'react';
+import React from "react";
 
 type Props = {
   type: string;
   className?: string;
 };
 
-export default function BodyTypeIcon({ type, className = '' }: Props) {
-  const common = { className, width: 24, height: 24, viewBox: '0 0 24 24', xmlns: 'http://www.w3.org/2000/svg', 'aria-hidden': true } as any;
+export default function BodyTypeIcon({ type, className = "" }: Props) {
+  const common = {
+    className,
+    width: 24,
+    height: 24,
+    viewBox: "0 0 24 24",
+    xmlns: "http://www.w3.org/2000/svg",
+    "aria-hidden": true,
+  } as any;
 
   switch (type) {
-    case 'SUV':
+    case "SUV":
       return (
         <svg {...common}>
           <rect x="2" y="7" width="15" height="5" rx="1" fill="currentColor" />
@@ -19,7 +26,7 @@ export default function BodyTypeIcon({ type, className = '' }: Props) {
         </svg>
       );
 
-    case 'Sedan':
+    case "Sedan":
       return (
         <svg {...common}>
           <path d="M2 12h14l3 3v2H2v-5z" fill="currentColor" />
@@ -29,7 +36,7 @@ export default function BodyTypeIcon({ type, className = '' }: Props) {
         </svg>
       );
 
-    case 'Hatchback':
+    case "Hatchback":
       return (
         <svg {...common}>
           <path d="M2 12h10l3 3v2H2v-5z" fill="currentColor" />
@@ -39,7 +46,7 @@ export default function BodyTypeIcon({ type, className = '' }: Props) {
         </svg>
       );
 
-    case 'Ute':
+    case "Ute":
       return (
         <svg {...common}>
           <path d="M2 12h9v-2l3 0v5H2v-3z" fill="currentColor" />
@@ -49,7 +56,7 @@ export default function BodyTypeIcon({ type, className = '' }: Props) {
         </svg>
       );
 
-    case 'Van':
+    case "Van":
       return (
         <svg {...common}>
           <rect x="2" y="6" width="16" height="8" rx="1" fill="currentColor" />
@@ -59,7 +66,7 @@ export default function BodyTypeIcon({ type, className = '' }: Props) {
         </svg>
       );
 
-    case 'Wagon':
+    case "Wagon":
       return (
         <svg {...common}>
           <path d="M2 11h11l3 3v2H2v-5z" fill="currentColor" />
@@ -69,7 +76,7 @@ export default function BodyTypeIcon({ type, className = '' }: Props) {
         </svg>
       );
 
-    case 'Coupe':
+    case "Coupe":
       return (
         <svg {...common}>
           <path d="M2 13h12l2-3s0-3-5-3H6l-4 3v3z" fill="currentColor" />
