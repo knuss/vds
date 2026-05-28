@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const NAV_LINKS = [
   { href: "/", label: "Home" },
@@ -14,11 +15,14 @@ export default function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4">
-          <Link
-            href="/"
-            className="font-display text-3xl tracking-wide text-slate-900"
-          >
-            The Car Garage AU
+          <Link href="/" className="inline-flex items-center">
+            <Image
+              src="/logo.png"
+              alt="The Car Garage AU"
+              width={160}
+              height={48}
+              className="object-contain"
+            />
           </Link>
           <span className="hidden rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-600 md:inline-flex">
             Used Cars - Melbourne

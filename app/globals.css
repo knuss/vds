@@ -4,6 +4,11 @@
   --color-cream-50: #f6f3ee;
   --color-ink-900: #0f172a;
   --color-ink-700: #334155;
+  /* Override amber theme with orange tones to make orange the primary brand color */
+  --color-amber-100: #fff7ed; /* light orange */
+  --color-amber-300: #fdba74; /* warm orange */
+  --color-amber-400: #fb923c; /* primary orange */
+  --color-amber-500: #f97316; /* strong orange */
 }
 
 @theme inline {
