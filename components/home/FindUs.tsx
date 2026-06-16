@@ -15,7 +15,9 @@ export default function FindUs() {
           <div className="mt-6 space-y-2 text-sm text-slate-600">
             <p>721-725 High St, Preston VIC 3072, Australia</p>
             <p>Phone: +61 431 000 280</p>
-            <p>Open today 9:00 AM - 5:30 PM</p>
+            <p>Monday - Friday: 10:00 AM - 4:00 PM</p>
+            <p>Saturday: 10:00 AM - 3:00 PM</p>
+            <p>Sunday: Closed</p>
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link

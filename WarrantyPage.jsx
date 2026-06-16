@@ -62,17 +62,17 @@ const BENEFITS = [
   { icon: "🔄", text: "Fully transferable to new owner" },
 ];
 
-function fmt(n: number) {
+function fmt(n) {
   return "$" + Number(n).toLocaleString("en-AU");
 }
 
-function getEligiblePlans(age: number, km: number) {
+function getEligiblePlans(age, km) {
   return Object.entries(PLANS)
     .filter(([, p]) => age <= p.maxAge && km < p.maxKm)
     .map(([key]) => key);
 }
 
-function StepBadge({ n, active, done }: { n: number; active: boolean; done: boolean }) {
+function StepBadge({ n, active, done }) {
   return (
     <div style={{
       width: 32, height: 32, borderRadius: "50%",
@@ -88,11 +88,9 @@ function StepBadge({ n, active, done }: { n: number; active: boolean; done: bool
   );
 }
 
-function PlanCard({ planKey, selected, eligible, onSelect, duration, is4wd }: {
-  planKey: string; selected: string | null; eligible: string[]; onSelect: (k: string) => void; duration: number; is4wd: boolean;
-}) {
-  const plan = PLANS[planKey as keyof typeof PLANS];
-  const price = PRICES[duration as keyof typeof PRICES]?.[planKey as keyof typeof PRICES[36]];
+function PlanCard({ planKey, selected, eligible, onSelect, duration, is4wd }) {
+  const plan = PLANS[planKey];
+  const price = PRICES[duration]?.[planKey];
   const total = price + (is4wd ? 110 : 0);
   const isEligible = eligible.includes(planKey);
   const isSelected = selected === planKey;
@@ -140,10 +138,10 @@ export default function WarrantyPage() {
   const [vehicleAge, setVehicleAge] = useState("");
   const [vehicleKm, setVehicleKm] = useState("");
   const [is4wd, setIs4wd] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
+  const [selectedPlan, setSelectedPlan] = useState(null);
   const [selectedDuration, setSelectedDuration] = useState(36);
-  const [roadsideDuration, setRoadsideDuration] = useState<number | null>(null);
-  const [roadsideLevel, setRoadsideLevel] = useState<string | null>(null);
+  const [roadsideDuration, setRoadsideDuration] = useState(null);
+  const [roadsideLevel, setRoadsideLevel] = useState(null);
   const [eligiblePlans, setEligiblePlans] = useState(["A", "B", "C", "D", "E"]);
   const [showCoverage, setShowCoverage] = useState(false);
 
@@ -155,11 +153,11 @@ export default function WarrantyPage() {
     }
   }, [vehicleAge, vehicleKm]);
 
-  const basePrice = selectedPlan && PRICES[selectedDuration as keyof typeof PRICES] ? PRICES[selectedDuration as keyof typeof PRICES][selectedPlan as keyof typeof PRICES[36]] : 0;
+  const basePrice = selectedPlan && PRICES[selectedDuration] ? PRICES[selectedDuration][selectedPlan] : 0;
   const surcharge = is4wd && selectedPlan ? 110 : 0;
-  const roadsidePrice = roadsideDuration && roadsideLevel ? (ROADSIDE[roadsideDuration as keyof typeof ROADSIDE]?.[roadsideLevel as keyof typeof ROADSIDE[12]] ?? 0) : 0;
+  const roadsidePrice = roadsideDuration && roadsideLevel ? (ROADSIDE[roadsideDuration]?.[roadsideLevel] ?? 0) : 0;
   const totalPrice = basePrice + surcharge + roadsidePrice;
-  const planColor = selectedPlan ? PLANS[selectedPlan as keyof typeof PLANS].accentColor : "#e97d2b";
+  const planColor = selectedPlan ? PLANS[selectedPlan].accentColor : "#e97d2b";
   const canProceedStep1 = vehicleAge !== "" && vehicleKm !== "" && eligiblePlans.length > 0;
   const canProceedStep2 = selectedPlan !== null;
 
@@ -171,7 +169,7 @@ export default function WarrantyPage() {
 
   const labelStyle = {
     display: "block", fontSize: 11, fontWeight: 700, letterSpacing: "0.08em",
-    color: "#94a3b8", textTransform: "uppercase" as const, marginBottom: 8,
+    color: "#94a3b8", textTransform: "uppercase", marginBottom: 8,
   };
 
   const sectionTitle = {
@@ -273,7 +271,7 @@ export default function WarrantyPage() {
                   {["A", "B", "C", "D", "E"].map(k => {
                     const ok = eligiblePlans.includes(k);
                     return (
-                      <div key={k} style={{ padding: "6px 14px", borderRadius: 20, fontSize: 13, fontWeight: 700, background: ok ? `${PLANS[k as keyof typeof PLANS].color}22` : "#1e293b", color: ok ? PLANS[k as keyof typeof PLANS].accentColor : "#334155", border: `1px solid ${ok ? PLANS[k as keyof typeof PLANS].accentColor + "44" : "#1e293b"}` }}>
+                      <div key={k} style={{ padding: "6px 14px", borderRadius: 20, fontSize: 13, fontWeight: 700, background: ok ? `${PLANS[k].color}22` : "#1e293b", color: ok ? PLANS[k].accentColor : "#334155", border: `1px solid ${ok ? PLANS[k].accentColor + "44" : "#1e293b"}` }}>
                         {ok ? "✓" : "✗"} Plan {k}
                       </div>
                     );
@@ -324,7 +322,7 @@ export default function WarrantyPage() {
                 <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr 1fr 1fr", background: "#0f172a", padding: "12px 16px", fontSize: 11, fontWeight: 800, letterSpacing: "0.05em", color: "#94a3b8", textTransform: "uppercase", gap: 8 }}>
                   <div>Component</div>
                   {["A", "B", "C", "D", "E"].map(k => (
-                    <div key={k} style={{ color: selectedPlan === k ? PLANS[k as keyof typeof PLANS].accentColor : "#94a3b8", textAlign: "center" }}>Plan {k}</div>
+                    <div key={k} style={{ color: selectedPlan === k ? PLANS[k].accentColor : "#94a3b8", textAlign: "center" }}>Plan {k}</div>
                   ))}
                 </div>
                 {Object.entries(COMPONENTS).map(([group, items]) => (
@@ -334,8 +332,8 @@ export default function WarrantyPage() {
                       <div key={item.name} className="comp-row" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr 1fr 1fr", padding: "10px 16px", gap: 8, borderBottom: "1px solid #0f172a", background: i % 2 === 0 ? "transparent" : "#0f172a33", transition: "background 0.15s" }}>
                         <div style={{ color: "#cbd5e1", fontSize: 13 }}>{item.name}</div>
                         {["A", "B", "C", "D", "E"].map(k => (
-                          <div key={k} style={{ textAlign: "center", fontSize: 13, fontWeight: 700, color: selectedPlan === k ? PLANS[k as keyof typeof PLANS].accentColor : eligiblePlans.includes(k) ? "#64748b" : "#1e293b" }}>
-                            {fmt(item.limits[k as keyof typeof item.limits])}
+                          <div key={k} style={{ textAlign: "center", fontSize: 13, fontWeight: 700, color: selectedPlan === k ? PLANS[k].accentColor : eligiblePlans.includes(k) ? "#64748b" : "#1e293b" }}>
+                            {fmt(item.limits[k])}
                           </div>
                         ))}
                       </div>
@@ -378,7 +376,7 @@ export default function WarrantyPage() {
                 <div style={labelStyle}>Roadside Duration</div>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 10, maxWidth: 580 }}>
                   {[12, 24, 36, 48, 60].map(d => {
-                    const price = ROADSIDE[d as keyof typeof ROADSIDE]?.[roadsideLevel as keyof typeof ROADSIDE[12]];
+                    const price = ROADSIDE[d]?.[roadsideLevel];
                     return (
                       <button key={d} className={`w-dur ${roadsideDuration === d ? "on" : ""}`} style={{ padding: "12px 6px" }} onClick={() => setRoadsideDuration(roadsideDuration === d ? null : d)}>
                         {d}m
@@ -411,7 +409,7 @@ export default function WarrantyPage() {
                 <div style={{ background: "#0f172a", border: "1px solid #1e293b", borderRadius: 14, padding: "24px", marginBottom: 16 }}>
                   <div style={{ ...labelStyle, marginBottom: 16 }}>Vehicle Details</div>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 16 }}>
-                    {[{ label: "Age", value: `${vehicleAge} year${vehicleAge == "1" ? "" : "s"}` }, { label: "Odometer", value: `${Number(vehicleKm).toLocaleString("en-AU")} km` }, { label: "Drivetrain", value: is4wd ? "4WD / AWD" : "2WD" }].map(item => (
+                    {[{ label: "Age", value: `${vehicleAge} year${vehicleAge == 1 ? "" : "s"}` }, { label: "Odometer", value: `${Number(vehicleKm).toLocaleString("en-AU")} km` }, { label: "Drivetrain", value: is4wd ? "4WD / AWD" : "2WD" }].map(item => (
                       <div key={item.label}>
                         <div style={{ fontSize: 11, color: "#475569", marginBottom: 4 }}>{item.label}</div>
                         <div style={{ fontWeight: 700, color: "#f1f5f9" }}>{item.value}</div>
@@ -426,7 +424,7 @@ export default function WarrantyPage() {
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 12 }}>
                     <div>
                       <div style={{ fontFamily: "'Barlow Condensed', 'Arial Narrow', sans-serif", fontSize: 28, fontWeight: 900, color: planColor }}>
-                        ENDURANCE {selectedPlan && PLANS[selectedPlan as keyof typeof PLANS].label}
+                        ENDURANCE {selectedPlan && PLANS[selectedPlan].label}
                       </div>
                       <div style={{ color: "#64748b", fontSize: 13, marginTop: 4 }}>{selectedDuration}-month plan</div>
                     </div>
@@ -435,7 +433,7 @@ export default function WarrantyPage() {
                       {is4wd && <div style={{ fontSize: 12, color: "#e97d2b" }}>+$110 4WD surcharge</div>}
                     </div>
                   </div>
-                  <div style={{ color: "#64748b", fontSize: 13 }}>{selectedPlan && PLANS[selectedPlan as keyof typeof PLANS].qualification}</div>
+                  <div style={{ color: "#64748b", fontSize: 13 }}>{selectedPlan && PLANS[selectedPlan].qualification}</div>
                 </div>
 
                 {/* Roadside */}

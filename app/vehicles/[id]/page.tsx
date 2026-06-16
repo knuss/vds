@@ -267,8 +267,10 @@ export default function VehicleDetailsPage() {
                 721-725 High St, Preston VIC 3072, Australia
               </p>
               <p className="text-sm text-slate-600">
-                Open today 9:00 AM - 5:30 PM
+                Monday - Friday: 10:00 AM - 4:00 PM
               </p>
+              <p className="text-sm text-slate-600">Saturday: 10:00 AM - 3:00 PM</p>
+              <p className="text-sm text-slate-600">Sunday: Closed</p>
             </div>
             <div className="overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 shadow-sm">
               <iframe

@@ -10,7 +10,7 @@ export default function UtilityBar() {
               className="h-1.5 w-1.5 rounded-full bg-emerald-400"
               aria-hidden="true"
             />
-            Open today 9:00 AM - 5:30 PM
+            Mon - Fri 10:00 AM - 4:00 PM · Sat 10:00 AM - 3:00 PM · Sun Closed
           </span>
           <span>721-725 High St, Preston VIC 3072, Australia</span>
           <Link href="tel:+61431000280" className="hover:text-white">

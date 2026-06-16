@@ -110,10 +110,9 @@ export default function SiteFooter() {
             Opening Hours
           </h3>
           <ul className="mt-4 space-y-2 text-sm text-slate-300">
-            <li>Monday - Friday: 9:00 AM - 5:30 PM</li>
-            <li>Saturday: 9:00 AM - 4:00 PM</li>
-            <li>Sunday: 10:00 AM - 3:00 PM</li>
-            <li>Public Holidays: By appointment</li>
+            <li>Monday - Friday: 10:00 AM - 4:00 PM</li>
+            <li>Saturday: 10:00 AM - 3:00 PM</li>
+            <li>Sunday: Closed</li>
           </ul>
         </div>
       </div>

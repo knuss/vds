@@ -2,17 +2,29 @@ import Link from "next/link";
 
 const REVIEWS = [
   {
-    name: "Daniel R.",
-    quote: "Great range of vehicles and honest advice. The team made it easy.",
-  },
-  {
-    name: "Emily K.",
+    name: "Shinez interior",
     quote:
-      "Smooth purchase experience and clear communication. Highly recommend.",
+      "Bought my first BMW from these guys and couldn't be happier. The service was excellent from start to finish, very honest and professional. The car was in superb condition and drives perfectly. Highly recommend them if you're looking for a quality car and great customer service.",
   },
   {
-    name: "Jade M.",
-    quote: "Fast trade-in valuation and a clean, well-prepared vehicle.",
+    name: "Wajeeh Rehman",
+    quote:
+      "Honestly one of the best dealerships I've been to. I believe the guy who helped me was Abdul. An extremely professional guy who has a true passion for cars and helping people. I recommend anyone to come here if they are looking for quality customer service and cars that are looked after! Thankyou to the team at Car Garage, we are loving our new car.",
+  },
+  {
+    name: "Ruhani Kaur",
+    quote:
+      "I had a great experience buying a car from The Car George Sale AU. The process was smooth and easy from start to finish. George was honest, friendly, and very helpful, answering all my questions without any pressure. The car was exactly as described and in great condition. Pricing was fair and the paperwork was handled quickly. I'm very happy with my purchase and would definitely recommend. Thank a lot.",
+  },
+  {
+    name: "Noah Chalhoub",
+    quote:
+      "Was recommended to this place by a gentleman up in Albury. Came down and had a great experience with Abdul, has an option for everybody no matter your budget. Wasn't pressured at all into buying - he's an absolute gun with top customer service and great quality vehicles.",
+  },
+  {
+    name: "Abhishek Perera",
+    quote:
+      "I bought a used car here and had a smooth, straightforward experience. The staff were clear, helpful, and easy to work with. The car matched its description and has been great so far. I appreciated the transparency and efficient paperwork. I'd return and recommend them based on this experience.",
   },
 ];
 
